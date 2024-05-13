@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Flights.Dtos;
 namespace Flights.Controllers
 {
     [Route("[controller]")]
@@ -8,6 +8,18 @@ namespace Flights.Controllers
     public class PassengerController : ControllerBase
     {
 
-        public IActionResult Register() { throw new NotImplementedException();  }
+        static private IList<NewPassengerDto> passengers = new List<NewPassengerDto>();
+
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public IActionResult Register( NewPassengerDto dto) {
+
+            passengers.Add(dto);
+            System.Diagnostics.Debug.WriteLine(passengers.Count());
+            return Ok() ; 
+        
+        }
     }
 }
